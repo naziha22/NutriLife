@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function ownsExisting() { return signedIn() && resource.data.userId == request.auth.uid; }
+    function ownsNew() { return signedIn() && request.resource.data.userId == request.auth.uid; }
+
+    // Documents indexés par uid
+    match /users/{uid} { allow read, write: if signedIn() && request.auth.uid == uid; }
+    match /userSettings/{uid} { allow read, write: if signedIn() && request.auth.uid == uid; }
+
+    // Documents avec champ userId (propriétaire)
+    match /favorites/{id} {
+      allow read, delete: if ownsExisting();
+      allow create: if ownsNew();
+      allow update: if ownsExisting() && ownsNew();
+    }
+    match /mealPlans/{id} {
+      allow read, delete: if ownsExisting();
+      allow create: if ownsNew();
+      allow update: if ownsExisting() && ownsNew();
+    }
+    match /shoppingLists/{id} {
+      allow read, delete: if ownsExisting();
+      allow create: if ownsNew();
+      allow update: if ownsExisting() && ownsNew();
+    }
+  }
+}

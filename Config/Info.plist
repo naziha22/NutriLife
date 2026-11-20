@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key><string>fr</string>
+  <key>CFBundleDisplayName</key><string>NutriLife</string>
+  <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+  <key>CFBundleName</key><string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>CFBundleLocalizations</key><array><string>fr</string><string>en</string><string>ar</string></array>
+  <key>UILaunchScreen</key><dict/>
+  <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
+  <!-- AdMob : identifiant d'application de TEST officiel Google -->
+  <key>GADApplicationIdentifier</key><string>ca-app-pub-3940256099942544~1458002511</string>
+  <key>SKAdNetworkItems</key>
+  <array><dict><key>SKAdNetworkIdentifier</key><string>cstr6suwn9.skadnetwork</string></dict></array>
+  <!-- Google Sign-In : remplacer par REVERSED_CLIENT_ID de GoogleService-Info.plist -->
+  <key>CFBundleURLTypes</key>
+  <array><dict>
+    <key>CFBundleURLSchemes</key>
+    <array><string>com.googleusercontent.apps.46637651600-u4ek9l3bt51vmvvd7t85kmbctafcgfbt</string></array>
+  </dict></array>
+</dict>
+</plist>
