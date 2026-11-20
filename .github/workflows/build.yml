@@ -1,0 +1,27 @@
+name: build-ios
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Firebase config
+        run: echo "${{ secrets.GOOGLE_SERVICE_INFO }}" | base64 --decode > NutriLife/GoogleService-Info.plist
+      - name: Generate project
+        run: brew install xcodegen && xcodegen generate
+      - name: Build
+        run: |
+          xcodebuild -project NutriLife.xcodeproj -scheme NutriLife \
+            -sdk iphonesimulator -configuration Debug -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log
+      - name: Zip app
+        run: cd build/Build/Products/Debug-iphonesimulator && zip -r "$GITHUB_WORKSPACE/NutriLife-simulator.zip" NutriLife.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NutriLife-simulator
+          path: NutriLife-simulator.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-log
+          path: build.log
