@@ -6,7 +6,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Firebase config
-        run: echo "${{ secrets.GOOGLE_SERVICE_INFO }}" | base64 --decode > NutriLife/GoogleService-Info.plist
+        env:
+          GSI: ${{ secrets.GOOGLE_SERVICE_INFO }}
+        run: |
+          if printf '%s' "$GSI" | grep -q "<?xml"; then
+            printf '%s\n' "$GSI" > NutriLife/GoogleService-Info.plist
+          else
+            printf '%s' "$GSI" | tr -d '\r\n ' | base64 --decode > NutriLife/GoogleService-Info.plist
+          fi
+          test -s NutriLife/GoogleService-Info.plist && echo "plist OK"
       - name: Generate project
         run: brew install xcodegen && xcodegen generate
       - name: Build
