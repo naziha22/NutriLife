@@ -1,22 +1,19 @@
 import SwiftUI
 
 struct SplashView: View {
-    @State private var animate = false
+    @State private var showText = false
     var body: some View {
         ZStack {
             LinearGradient(colors: [AppColor.green, AppColor.greenDark], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
-            VStack(spacing: 18) {
-                ZStack {
-                    Circle().fill(.white.opacity(0.15)).frame(width: 150, height: 150).scaleEffect(animate ? 1.15 : 0.8)
-                    Image(systemName: "leaf.fill").font(.system(size: 68)).foregroundStyle(.white)
-                        .rotationEffect(.degrees(animate ? 0 : -25)).scaleEffect(animate ? 1 : 0.4)
-                }
-                Text("NutriLife").font(.system(size: 38, weight: .bold, design: .rounded)).foregroundStyle(.white)
+            VStack(spacing: 22) {
+                LogoView(size: 160, onDark: true)
+                AnimatedTitle(text: "NutriLife", highlightFrom: 5)
                 Text(L("splash.tagline")).font(.subheadline).foregroundStyle(.white.opacity(0.85))
-                ProgressView().tint(.white).padding(.top, 20)
-            }.opacity(animate ? 1 : 0)
+                    .opacity(showText ? 1 : 0).offset(y: showText ? 0 : 10)
+                ProgressView().tint(.white).padding(.top, 16).opacity(showText ? 1 : 0)
+            }
         }
-        .onAppear { withAnimation(.spring(response: 0.9, dampingFraction: 0.6)) { animate = true } }
+        .onAppear { withAnimation(.easeOut(duration: 0.6).delay(1.8)) { showText = true } }
     }
 }
 
@@ -40,9 +37,7 @@ private struct AuthHeader: View {
     let title: String; let subtitle: String
     var body: some View {
         VStack(spacing: 10) {
-            Image(systemName: "leaf.fill").font(.system(size: 36)).foregroundStyle(.white)
-                .frame(width: 76, height: 76).background(AppColor.green, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-                .shadow(color: AppColor.green.opacity(0.4), radius: 12, y: 6)
+            LogoView(size: 92)
             Text(title).font(.system(size: 28, weight: .bold, design: .rounded))
             Text(subtitle).font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }.padding(.top, 30)

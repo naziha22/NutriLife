@@ -70,7 +70,7 @@ struct RootView: View {
         .animation(.spring(), value: errors.message)
         .task {
             ads.start()
-            try? await Task.sleep(for: .seconds(1.8))
+            try? await Task.sleep(for: .seconds(3.0))
             showSplash = false
         }
         .onChange(of: auth.user?.uid, initial: true) { _, uid in
