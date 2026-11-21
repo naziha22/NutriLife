@@ -108,17 +108,17 @@ final class AuthViewModel: ObservableObject {
         }
     }
 
-    private func message(for error: Error) -> String {
+        private func message(for error: Error) -> String {
         let ns = error as NSError
-        guard ns.domain == AuthErrorDomain, let code = AuthErrorCode.Code(rawValue: ns.code) else {
+        guard ns.domain == "FIRAuthErrorDomain" else {
             return ns.domain == "NutriLife" ? L("err.auth.google") : L("err.generic")
         }
-        switch code {
-        case .wrongPassword, .invalidCredential, .userNotFound, .invalidEmail: return L("err.auth.invalid")
-        case .emailAlreadyInUse: return L("err.auth.exists")
-        case .weakPassword: return L("err.auth.weak")
-        case .networkError: return L("err.auth.network")
-        case .tooManyRequests: return L("err.auth.many")
+        switch ns.code {
+        case 17004, 17008, 17009, 17011: return L("err.auth.invalid")   // identifiants / e-mail invalides
+        case 17007: return L("err.auth.exists")                          // e-mail déjà utilisé
+        case 17026: return L("err.auth.weak")                            // mot de passe faible
+        case 17020: return L("err.auth.network")                         // réseau
+        case 17010: return L("err.auth.many")                            // trop de tentatives
         default: return L("err.generic")
         }
     }
