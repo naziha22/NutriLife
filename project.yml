@@ -28,6 +28,11 @@ targets:
         product: GoogleSignIn
       - package: GoogleMobileAds
         product: GoogleMobileAds
+    entitlements:
+      path: Config/NutriLife.entitlements
+      properties:
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)com.nutrilife.app
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nutrilife.app
