@@ -22,6 +22,7 @@ struct NutritionDashboardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                DashboardHero(planned: planner.weekMeals.count)
                 // Les valeurs nutritionnelles ne sont jamais inventées : TheMealDB n'en fournit pas.
                 VStack(alignment: .leading, spacing: 12) {
                     Label(L("nut.unavailable"), systemImage: "info.circle.fill").font(.headline).foregroundStyle(AppColor.accent)

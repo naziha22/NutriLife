@@ -156,6 +156,10 @@ struct ShoppingListView: View {
         NavigationStack {
             List {
                 Section {
+                    if !shopping.items.isEmpty {
+                        ShoppingProgressHeader(done: shopping.purchased.count, total: shopping.items.count)
+                            .listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                    }
                     CustomButton(title: shopping.isGenerating ? L("shop.generating") : L("shop.generate"), icon: "wand.and.stars", style: .accent, isLoading: shopping.isGenerating) {
                         Task { await shopping.generate(from: planner.meals) }
                     }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
