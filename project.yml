@@ -12,8 +12,7 @@ packages:
     from: 8.0.0
   GoogleMobileAds:
     url: https://github.com/googleads/swift-package-manager-google-mobile-ads
-    from: 11.0.0
-    maxVersion: 11.99.0
+    exactVersion: 11.13.0
 targets:
   NutriLife:
     type: application
